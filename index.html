@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<meta charset="utf-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+
+    <style type="text/css">
+
+        input{
+            margin-left: 130px;
+            margin-top: 80px;
+            height: 70px; 
+            width: 250px; 
+            font-size: 56px; 
+            text-align: center;
+            }  
+
+    </style>
+    
+</head>
+    
+    
+    <body style="background-color: lightblue;">
+        <nav class="navbar navbar-light bg-faded">
+        <span class="navbar-text">
+        Wanna Test Your hearing frequency <strong>CHECK IT OUT HERE</strong> 
+        </span>
+        </nav>
+        <form id="form1">
+            <div class="container" >
+                <div class="row">
+                <div class="col-md-6">
+
+                
+                    <!--<div>
+                        <audio src="http://onlinetonegenerator.com/downloads/hearing_test/sweep.mp3" autoplay="autoplay"></audio>
+                    </div>-->
+                   
+                    <audio controls="controls" id="myVideo" style= "display:none;">
+                        <source src="sweep.mp3" type="audio/mpeg" />
+                    </audio>
+
+                    <input type="textfield" id="txt" readonly />Htz
+                            <br /><br />
+                    <p style="margin-left: 12%;color:white;font-style:italic;"> <h2 style="margin-left: 12%;color:white;font-style:sans-serif;">Your Estimated Age is :<label id="lblAge" style="margin-top: -10%;color:yellow;font-style:sans-serif;"></label></h2></p>
+                    <button onclick="playVid()" type="button" class="btn btn-success" > PLAY  AUDIO</button>
+                    
+                    <button onclick="pauseVid()" type="button"  class="btn btn-danger" >STOP AUDIO</button>
+
+                    <button onclick="Clear()" type="button" class="btn btn-info" >CLEAR FREQUENCY</button><br /><br /><br /><br />
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </body>
+    <script>
+var vid = document.getElementById("myVideo");
+var Aid = document.getElementById("myAudio");
+
+function playVid() {
+    vid.play();
+    timedCount();
+
+
+}
+
+function timedCount() {
+    //var time = new Date().getTime() - start;
+    var time = document.getElementById('myVideo').currentTime;
+    if (time < 0) { time = time * -1 };
+    time = (Math.round(time * Math.pow(10, 3)) / Math.pow(10, 3)).toFixed(3);
+    var freq = Math.round(time * 333.325);
+    document.getElementById('txt').value = freq;
+
+    t = setTimeout('timedCount()', 50);
+
+
+}
+
+function pauseVid() {
+
+    vid.pause();
+    // Aid.pause();
+    var value = parseInt($('#txt').val());
+    var result = (20925 - value) / 166;
+    $('#lblAge').text(parseFloat(result).toFixed(2));
+   
+}
+
+function Clear() {
+    window.location.href = 'AudioFrequency.html';
+}
+    </script>
+</body>
+</html>
